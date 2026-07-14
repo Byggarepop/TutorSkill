@@ -40,12 +40,17 @@ One command installs it — curl ships with Windows, macOS, and most Linux distr
 curl --create-dirs -o ~/.claude/skills/tutor-mode/SKILL.md https://raw.githubusercontent.com/Byggarepop/TutorSkill/main/SKILL.md
 ```
 
+**Claude Code — Windows (Command Prompt):**
+```cmd
+curl.exe --create-dirs -o "%USERPROFILE%\.claude\skills\tutor-mode\SKILL.md" https://raw.githubusercontent.com/Byggarepop/TutorSkill/main/SKILL.md
+```
+
 **Claude Code — Windows (PowerShell):**
 ```powershell
 curl.exe --create-dirs -o "$env:USERPROFILE\.claude\skills\tutor-mode\SKILL.md" https://raw.githubusercontent.com/Byggarepop/TutorSkill/main/SKILL.md
 ```
 
-(On Windows, write `curl.exe` — in Windows PowerShell, plain `curl` is an alias for `Invoke-WebRequest` and takes different flags.)
+(On Windows, write `curl.exe` — in Windows PowerShell, plain `curl` is an alias for `Invoke-WebRequest` and takes different flags. Use the variant matching your shell: `%USERPROFILE%` only expands in Command Prompt, `$env:USERPROFILE` only in PowerShell.)
 
 For **Copilot CLI**, use the same commands but replace `.claude` with `.copilot`.
 
