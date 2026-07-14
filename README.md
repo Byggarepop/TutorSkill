@@ -33,17 +33,19 @@ Installing a skill just means copying `SKILL.md` into a folder the tool scans �
 | Claude Code | `~/.claude/skills/tutor-mode/SKILL.md` |
 | Copilot CLI | `~/.copilot/skills/tutor-mode/SKILL.md` |
 
-**Claude Code — Windows (PowerShell):**
-```powershell
-New-Item -ItemType Directory -Force "$env:USERPROFILE\.claude\skills\tutor-mode"
-Invoke-WebRequest https://raw.githubusercontent.com/Byggarepop/TutorSkill/main/SKILL.md -OutFile "$env:USERPROFILE\.claude\skills\tutor-mode\SKILL.md"
-```
+One command installs it — curl ships with Windows, macOS, and most Linux distros, and `--create-dirs` creates the folder for you:
 
 **Claude Code — macOS / Linux:**
 ```bash
-mkdir -p ~/.claude/skills/tutor-mode
-curl -o ~/.claude/skills/tutor-mode/SKILL.md https://raw.githubusercontent.com/Byggarepop/TutorSkill/main/SKILL.md
+curl --create-dirs -o ~/.claude/skills/tutor-mode/SKILL.md https://raw.githubusercontent.com/Byggarepop/TutorSkill/main/SKILL.md
 ```
+
+**Claude Code — Windows (PowerShell):**
+```powershell
+curl.exe --create-dirs -o "$env:USERPROFILE\.claude\skills\tutor-mode\SKILL.md" https://raw.githubusercontent.com/Byggarepop/TutorSkill/main/SKILL.md
+```
+
+(On Windows, write `curl.exe` — in Windows PowerShell, plain `curl` is an alias for `Invoke-WebRequest` and takes different flags.)
 
 For **Copilot CLI**, use the same commands but replace `.claude` with `.copilot`.
 
