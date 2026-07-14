@@ -96,6 +96,24 @@ For each step:
 
 Repeat until the plan is done. If you come back in a later session, the AI picks up from the plan file on disk.
 
+### Example
+1. Selecting `/tutor-mode` and adding a prompt that describes a logging tool I want to implement
+![Selecting the tutor skill and a prompt](https://raw.githubusercontent.com/Byggarepop/TutorSkill/main/img/tutor-mode-selected-with-prompt-Q1.png)
+2. Questions raised by the model on how I want to approach this project
+![Answering the model's questions](https://raw.githubusercontent.com/Byggarepop/TutorSkill/main/img/tutor-mode-selected-with-prompt-Q2.png)
+3. All questions answered and submitting the answers
+![Submitting answers](https://raw.githubusercontent.com/Byggarepop/TutorSkill/main/img/tutor-mode-selected-with-prompt-Q5.png)
+4. The model presents the plan (not in the picture: my answer, "Looks great, let's go!").
+![Plan presented](https://raw.githubusercontent.com/Byggarepop/TutorSkill/main/img/tutor-mode-plan-presented.png)
+5. Step 1 is presented, which I completed and replied to with "Finished".
+![Step 1 instruction](https://raw.githubusercontent.com/Byggarepop/TutorSkill/main/img/tutor-mode-step1-presented.png)
+6. Here the model informs me that I missed adding the reference to one of the projects, so I got some homework to do. I added the reference and then wrote "Finished".
+![Step 1 homework](https://raw.githubusercontent.com/Byggarepop/TutorSkill/main/img/tutor-mode-step1-finished-with-comments.png)
+7. Step 1 finished ("Hurray!"). Now time for step 2, then 3, and so on…
+![Step 2 instruction](https://raw.githubusercontent.com/Byggarepop/TutorSkill/main/img/tutor-mode-step2-presented.png)
+
+
+
 ### Tips
 
 - **Step size is negotiable.** Ask for fine-grained baby steps when learning a new concept, or bigger steps when you're experienced and want pace.
