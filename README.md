@@ -4,7 +4,7 @@ A skill that flips the normal AI-assistant roles: **you write all the code, the 
 
 Instead of implementing for you, the assistant plans the work, breaks it into small steps, hands you one step at a time, reviews what you wrote, and only unlocks the next step when the current one is correct — like a senior engineer pairing with you while you're at the keyboard.
 
-The skill itself ([`SKILL.md`](SKILL.md)) is plain markdown instructions, so while it's packaged in the Claude Code skill format, the same content works as custom instructions for GitHub Copilot in VS Code or Visual Studio — see [Installation](#installation).
+The skill uses the standard [Agent Skills](https://docs.github.com/en/copilot/concepts/agents/about-agent-skills) format (`SKILL.md`), which both **Claude Code** and **GitHub Copilot CLI** support natively.
 
 Use it when you want to *learn by doing*:
 
@@ -24,51 +24,46 @@ Use it when you want to *learn by doing*:
 
 ## Installation
 
-### Claude Code (terminal, VS Code / JetBrains extensions, desktop app)
+Installing a skill just means copying `SKILL.md` into a folder the tool scans — nothing to build or register.
 
-Claude Code discovers skills from the filesystem, so installing means copying `SKILL.md` to the right folder. The same install works for every Claude Code interface, because they all read the same `.claude` folders.
+### Personal skill (available in all your projects)
 
-**Personal skill — available in all your projects:**
+| Tool | Folder |
+|---|---|
+| Claude Code | `~/.claude/skills/tutor-mode/SKILL.md` |
+| Copilot CLI | `~/.copilot/skills/tutor-mode/SKILL.md` |
 
-macOS / Linux:
-```bash
-mkdir -p ~/.claude/skills/tutor-mode
-curl -o ~/.claude/skills/tutor-mode/SKILL.md https://raw.githubusercontent.com/byggarepop/tutorskill/main/SKILL.md
-```
-
-Windows (PowerShell):
+**Claude Code — Windows (PowerShell):**
 ```powershell
 New-Item -ItemType Directory -Force "$env:USERPROFILE\.claude\skills\tutor-mode"
-Invoke-WebRequest https://raw.githubusercontent.com/byggarepop/tutorskill/main/SKILL.md -OutFile "$env:USERPROFILE\.claude\skills\tutor-mode\SKILL.md"
+Invoke-WebRequest https://raw.githubusercontent.com/Byggarepop/TutorSkill/main/SKILL.md -OutFile "$env:USERPROFILE\.claude\skills\tutor-mode\SKILL.md"
 ```
 
-**Project skill — shared with your team via git:** copy `SKILL.md` to `.claude/skills/tutor-mode/SKILL.md` inside the project repository and commit it.
+**Claude Code — macOS / Linux:**
+```bash
+mkdir -p ~/.claude/skills/tutor-mode
+curl -o ~/.claude/skills/tutor-mode/SKILL.md https://raw.githubusercontent.com/Byggarepop/TutorSkill/main/SKILL.md
+```
 
-**Verify:** start (or restart) Claude Code in a project and type `/tutor-mode` — it should appear in the slash-command list. Nothing to build or register.
+For **Copilot CLI**, use the same commands but replace `.claude` with `.copilot`.
 
-### VS Code with GitHub Copilot
+### Project skill (shared with your team via git)
 
-Two options:
+Copy `SKILL.md` to `.claude/skills/tutor-mode/SKILL.md` **or** `.github/skills/tutor-mode/SKILL.md` in your repository and commit it. Both Claude Code and Copilot CLI scan both locations, so either one works for both tools.
 
-- **Custom chat mode (recommended):** in VS Code, run `Chat: New Mode File` from the command palette, name it `tutor-mode`, and paste the body of `SKILL.md` (everything below the `---` frontmatter block) into the generated `.chatmode.md` file. You can then pick **tutor-mode** from the mode dropdown in the Chat view.
-- **Per-project instructions:** save the body of `SKILL.md` as `.github/instructions/tutor-mode.instructions.md` (or append it to `.github/copilot-instructions.md`) in your repo. Note that plain instruction files apply to *every* chat in that repo, so prefer the chat mode if you only want tutoring some of the time.
+### Verify it's loaded
 
-### Visual Studio with GitHub Copilot
+- **Claude Code:** start (or restart) a session and type `/tutor-mode` — it should appear in the slash-command list.
+- **Copilot CLI:** run `/skills reload` (or start a new session), then `/skills info tutor-mode`.
 
-Save the body of `SKILL.md` as `.github/copilot-instructions.md` in the root of your repository (and make sure custom instructions are enabled under **Tools → Options → GitHub → Copilot**). Copilot Chat will then follow the tutor rules in that solution.
-
-### Anything else
-
-The skill is just instructions in markdown. Any AI coding assistant that accepts custom/system instructions can run it — paste the body of `SKILL.md` in, then describe what you want to build.
+> **VS Code note:** Copilot in VS Code also discovers Agent Skills automatically from the same folders — including `~/.claude/skills/` — so the personal install above makes the skill available there too, with no extra steps.
 
 ## Usage
 
-With Claude Code you can trigger the skill two ways:
+Trigger the skill either way:
 
-1. **Explicitly:** type `/tutor-mode` followed by what you want to build.
-2. **Naturally:** just say you want to learn by doing — phrases like *"guide me"*, *"coach me"*, *"teach me"*, *"don't write the code for me"*, or *"let me implement it"* activate it.
-
-In VS Code / Visual Studio, select the tutor chat mode (or rely on the instruction file) and describe what you want to build.
+1. **Explicitly** (Claude Code): type `/tutor-mode` followed by what you want to build.
+2. **Naturally** (both tools): just say you want to learn by doing — phrases like *"guide me"*, *"coach me"*, *"teach me"*, *"don't write the code for me"*, or *"let me implement it"* activate it.
 
 ### Starting a new project
 
@@ -78,7 +73,7 @@ The AI will ask how granular you want the steps, present a full numbered plan, a
 
 ### Adding a feature to an existing project
 
-> `/tutor-mode I want to add email notifications to this app, but I want to implement it myself so I learn the codebase. Coach me through it.`
+> `I want to add email notifications to this app, but I want to implement it myself so I learn the codebase. Coach me through it.`
 
 The AI reads your codebase first — structure, conventions, how similar features are already built — then plans the feature to fit *your* architecture. Each step names the actual files and symbols to touch and points at existing code as the pattern to imitate. Steps are sequenced to keep the project compiling at every gate.
 
